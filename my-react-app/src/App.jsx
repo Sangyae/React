@@ -1,43 +1,49 @@
-import "./App.css";
+import { useState } from 'react';
 
-function Header({name, year}){
-    return (
-        <header>
-            <h1>{name}'s Workspace</h1>
-            
-        </header>
-    );
-}
+function ProductPannel() {
+    // 1. Create all necessary state variables
+    const [productId, setProductId] = useState('');
+    const [productName, setProductName] = useState('');
+    const [productDatePurchased, setProductDatePurchased] = useState('');
 
-const items = ["Home", "About", "Contact"];
+    // 2. Define handlers INSIDE the component so they can access the state
+    function clearClickHandler() {
+        setProductId('');
+        setProductName('');
+        setProductDatePurchased('');    
+    }
 
-function Main(){
+    function showClickHandler() {
+        alert(`ID: ${productId},\n Name: ${productName} ,\n Date: ${productDatePurchased}`);
+    }
+
     return (
         <div>
-            <main>
-                <h2>Welcome! to my workspace, How can I help you?</h2>
-            </main>
-            <ul>
-                {items.map((item) => 
-                    <li style={{listStyleType: "none"}}>{item}</li>)}
-            </ul>
+            <h3>Product Details</h3>
+            
+            {/* 3. Add inputs for all your state variables */}
+            <input
+                placeholder="Product ID"
+                value={productId}
+                onChange={(e) => setProductId(e.target.value)} 
+            /> <br />
+            <input
+                placeholder="Product Name"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)} 
+            /> <br/>
+            <input
+                type="date"
+                placeholder="Date Purchased"
+                value={productDatePurchased}
+                onChange={(e) => setProductDatePurchased(e.target.value)} 
+            />
+            
+            <br /><br />
+            {/* 4. Fix button names and attach the handlers */}
+            <button onClick={showClickHandler}>Show</button>
+            <button onClick={clearClickHandler}>Clear</button>
         </div>
     );
 }
-function Footer({year}){
-    return (
-        <footer>
-            <p>Copyright {year}</p>
-        </footer>
-    );
-}
-function App() {
-return (
-    <div>
-        <Header name="Tamang"/>
-        <Main repair = {items}/>
-        <Footer year={new Date().getFullYear()} />
-    </div>
-    );
-}
-export default App;
+export default ProductPannel;
